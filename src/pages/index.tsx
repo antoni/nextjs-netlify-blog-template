@@ -3,24 +3,43 @@ import BasicMeta from "../components/meta/BasicMeta";
 import OpenGraphMeta from "../components/meta/OpenGraphMeta";
 import TwitterCardMeta from "../components/meta/TwitterCardMeta";
 import { SocialList } from "../components/SocialList";
+import { MDXProvider } from '@mdx-js/react';
+import { DesktopApplicationGlobalStyles } from '@mbank-design/components-library/styles';
+import { DesignSystemThemeProvider } from '@mbank-design/components-library/providers';
+import { mBank } from '@mbank-design/components-library/themes';
+import { Button } from '@mbank-design/components-library/components'
 
 export default function Index() {
-  return (
-    <Layout>
-      <BasicMeta url={"/"} />
-      <OpenGraphMeta url={"/"} />
-      <TwitterCardMeta url={"/"} />
-      <div className="container">
-        <div>
-          <h1>
-            Hi, We're Next.js & Netlify<span className="fancy">.</span>
-          </h1>
-          <span className="handle">@nextjs-netlify-blog</span>
-          <h2>A blog template with Next.js and Netlify.</h2>
-          <SocialList />
-        </div>
-      </div>
-      <style jsx>{`
+    return (
+        <DesignSystemThemeProvider theme={mBank}>
+            <MDXProvider
+                components={{
+                    wrapper: (props) => {
+                        return (
+                            <DesignSystemThemeProvider
+                                theme={mBank}
+                                {...props}
+                            />
+                        );
+                    },
+                }}
+            >
+            <Layout>
+                <BasicMeta url={"/"}/>
+                <OpenGraphMeta url={"/"}/>
+                <TwitterCardMeta url={"/"}/>
+                <Button>Click me</Button>
+                <div className="container">
+                    <div>
+                        <h1>
+                            Hi, We're Next.js & Netlify<span className="fancy">.</span>
+                        </h1>
+                        <span className="handle">@nextjs-netlify-blog</span>
+                        <h2>A blog template with Next.js and Netlify.</h2>
+                        <SocialList/>
+                    </div>
+                </div>
+                <style jsx>{`
         .container {
           display: flex;
           align-items: center;
@@ -57,6 +76,8 @@ export default function Index() {
           }
         }
       `}</style>
-    </Layout>
-  );
+            </Layout>
+            </MDXProvider>
+        </DesignSystemThemeProvider>
+    );
 }

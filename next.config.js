@@ -1,7 +1,9 @@
 const withMdxEnhanced = require("next-mdx-enhanced");
 const rehypePrism = require("@mapbox/rehype-prism");
 
-module.exports = withMdxEnhanced({
+const transpileModules = require('next-transpile-modules')(['@mbank-design']); // pass the modules you would like to see transpiled
+
+module.exports = transpileModules(withMdxEnhanced({
   layoutPath: "src/layouts",
   defaultLayout: true,
   rehypePlugins: [rehypePrism],
@@ -23,4 +25,4 @@ module.exports = withMdxEnhanced({
     );
     return config;
   },
-});
+}));
